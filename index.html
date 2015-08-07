@@ -1,0 +1,53 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<style>
+.audio-line{
+	width:100%;
+}
+.audio-bar{
+	background-color:red;
+	height:40px;
+	margin-bottom:5px;
+}
+</style>
+</head>
+<body>
+<audio id="test-audio" autoplay loop src="test.mp3">  
+Your browser does not support the audio element.
+</audio> 
+
+<div id="audio-content">
+
+</div>
+
+<script>
+var context = new AudioContext();
+
+// feed video into a MediaElementSourceNode, and feed that into AnalyserNode
+// due to a bug in Chrome, this must run after onload
+var audioElement = document.getElementById('test-audio');
+var mediaSourceNode = context.createMediaElementSource(audioElement);
+
+var analyser = context.createAnalyser();
+mediaSourceNode.connect(analyser);
+analyser.connect(context.destination);
+
+analyser.fftSize = 32;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+
+audioElement.play();
+
+setInterval(function(){
+	analyser.getByteFrequencyData(dataArray);
+	var tmp_html = "";
+	Object.keys(dataArray).forEach(function(d){
+		tmp_html += "<div class='audio-line'><div class='audio-bar' style='width:"+(dataArray[d]/2.55)+"%;'>"+d+"</div></div>";
+	});
+	$('#audio-content').html(tmp_html);
+}, 15);
+</script>
+</body>
+</html>
