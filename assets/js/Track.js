@@ -12,6 +12,12 @@ Track.prototype.add_note = function(note){
 	if(this.notes == ""){
 		this.notes = [];
 	}
+	
+	if(this.notes.length > 0){
+		if(this.notes[this.notes.length-1].start_time == note.start_time){
+			return;
+		}
+	}
 	this.notes.push(note);
 };
 

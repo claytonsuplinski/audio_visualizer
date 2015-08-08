@@ -2,33 +2,11 @@ TTR = {};
 
 TTR.constants = {};
 TTR.constants.to_radians = Math.PI/180;
-TTR.constants.note_lifespan_factor = 16/1000;
+TTR.constants.note_lifespan = 40;
+TTR.constants.audio_delay = 5000;
+TTR.constants.note_lifespan_factor = TTR.constants.note_lifespan/TTR.constants.audio_delay;
 
 TTR.now = new Date();
-
-TTR.data = {};
-TTR.data.elements = [];
-TTR.data.group_names = [
-	{"trivial": "", "CAS": ""},
-	{"trivial": "Alkali Metals", "CAS": "IA"},
-	{"trivial": "Alkaline Earth Metals", "CAS": "IIA"},
-	{"trivial": "Scandium Group", "CAS": "IIIB"},
-	{"trivial": "Titanium Group", "CAS": "IVB"},
-	{"trivial": "Vanadium Group", "CAS": "VB"},
-	{"trivial": "Chromium Group", "CAS": "VIB"},
-	{"trivial": "Manganese Group", "CAS": "VIIB"},
-	{"trivial": "Iron Group", "CAS": "VIIIB"},
-	{"trivial": "Cobalt Group", "CAS": "VIIIB"},
-	{"trivial": "Nickel Group", "CAS": "VIIIB"},
-	{"trivial": "Coinage Metals", "CAS": "IB"},
-	{"trivial": "Volatile Metals", "CAS": "IIB"},
-	{"trivial": "Icosagens", "CAS": "IIIA"},
-	{"trivial": "Crystallogens", "CAS": "IVA"},
-	{"trivial": "Pnictogens", "CAS": "VA"},
-	{"trivial": "Chalcogens", "CAS": "VIA"},
-	{"trivial": "Halogens", "CAS": "VIIA"},
-	{"trivial": "Noble Gases", "CAS": "VIIIA"}
-];
 
 TTR.keys_pressed = [];
 

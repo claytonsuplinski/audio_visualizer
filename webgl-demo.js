@@ -50,10 +50,12 @@ function start() {
 		test_track_3.add_note(new Note());
 
 		setInterval(drawScene, 15);
-		
+
+/*		
 		setInterval(function(){test_track.add_note(new Note());}, 500);
 		setInterval(function(){test_track_2.add_note(new Note());}, 1500);
 		setInterval(function(){test_track_3.add_note(new Note());}, 1000);
+*/
 	}
 }
 

@@ -200,22 +200,62 @@ analyser.connect(context.destination);
 
 analyser.fftSize = 32;
 var bufferLength = analyser.frequencyBinCount;
-var dataArray = new Uint8Array(bufferLength);
+var dataArray = new Float32Array(bufferLength);
 
 audioElement.play();
 audioElement.volume=0.001;
 
+var prev_data = {};
+prev_data.left   = 0;
+prev_data.middle = 0;
+prev_data.right  = 0;
 setInterval(function(){
-	analyser.getByteFrequencyData(dataArray);
+	analyser.getFloatFrequencyData(dataArray);
 	var tmp_html = "";
+	var curr_data = {};
+	curr_data.left   = 0;
+	curr_data.middle = 0;
+	curr_data.right  = 0;
 	Object.keys(dataArray).forEach(function(d){
-		tmp_html += "<div class='audio-line'><div class='audio-bar' style='width:"+(dataArray[d]/2.55)+"%;'>"+d+"</div></div>";
+		var index = parseInt(d);
+		tmp_html += "<div class='audio-line'><div class='audio-bar' style='width:"+(3*dataArray[d]/2.55)+"%;'>"+d+": "+dataArray[d]+"</div></div>";
+		var track_index = 0;
+		if(index > 7){
+			track_index = 2;
+		}
+		else if(index > 4){
+			track_index = 1;
+		}
+		switch(track_index){
+			case 0:
+				curr_data.left += dataArray[d];
+				break;
+			case 1:
+				curr_data.middle += dataArray[d];
+				break;
+			case 2:
+				curr_data.right += dataArray[d];
+				break;
+		};
 	});
+	
+	if(Math.abs(curr_data.left - prev_data.left) > 20){
+		test_track.add_note(new Note());
+	}
+	if(curr_data.middle - prev_data.middle > 12){
+		test_track_2.add_note(new Note());
+	}
+	if(curr_data.right - prev_data.right > 10){
+		test_track_3.add_note(new Note());
+	}
+	
+	prev_data = curr_data;
+	
 	$('#audio-content').html(tmp_html);
 }, 15);
 
 var audioElement2 = document.getElementById('test-audio-audible');
-setTimeout(function(){audioElement2.play();}, 5000);
+setTimeout(function(){audioElement2.play();}, TTR.constants.audio_delay);
 
 </script>
 </body>
