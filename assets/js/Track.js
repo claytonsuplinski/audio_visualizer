@@ -28,11 +28,18 @@ Track.prototype.draw = function(){
 	
 		mvTranslate([this.x, 0, 0]);
 
+		gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+		
 		this.model.draw();
+		
+		gl.disable(gl.BLEND);
+		
+		tmp_notes = this.notes;
 		this.notes.forEach(function(note, index){
 			note.draw();
 			if(note.should_delete){
-				self.notes.splice(index, 1);
+			//	self.notes.splice(index, 1);
 			}
 		});
 	

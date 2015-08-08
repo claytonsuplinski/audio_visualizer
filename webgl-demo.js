@@ -48,6 +48,11 @@ function start() {
 		
 		test_track_3 = new Track(5);
 		test_track_3.add_note(new Note());
+		
+		test_sphere = new Sphere(200, 50, 50);
+		test_sphere.set_texture("./assets/textures/background.png");
+		test_sphere.set_shader(basic_shader);
+		test_sphere_rotation = 0;
 
 		setInterval(drawScene, 15);
 
@@ -65,9 +70,14 @@ function drawScene() {
 
 	perspectiveMatrix = makePerspective(45, window.innerWidth/window.innerHeight, 0.1, 5000.0);
 	
-	TTR.now = new Date();
+	TTR.now = (new Date()).getTime();
 
 	loadIdentity();
+	
+	mvRotate(test_sphere_rotation, [0,1,0]);
+	test_sphere.draw();
+	mvRotate(-test_sphere_rotation, [0,1,0]);
+	test_sphere_rotation++;
 
 	if(TTR.user.free_mode){
 		mvRotate(TTR.user.rotation.x, [1,0,0]);
