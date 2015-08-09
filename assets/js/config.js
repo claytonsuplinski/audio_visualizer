@@ -3,7 +3,7 @@ TTR = {};
 TTR.constants = {};
 TTR.constants.to_radians = Math.PI/180;
 TTR.constants.note_lifespan = 30;
-TTR.constants.audio_delay = 2000;
+TTR.constants.audio_delay = 1000;
 TTR.constants.note_lifespan_factor = TTR.constants.note_lifespan/TTR.constants.audio_delay;
 
 TTR.now = new Date();
@@ -15,10 +15,11 @@ TTR.user.free_mode = false;
 TTR.user.position = {};
 TTR.user.position.x = 0;
 TTR.user.position.y = 0;
-TTR.user.position.z = -20;
+TTR.user.position.z = -30;
 TTR.user.rotation = {};
-TTR.user.rotation.x = 0;
+TTR.user.rotation.x = -40;
 TTR.user.rotation.y = 0;
+TTR.user.score = 0;
 
 TTR.mouse = {};
 TTR.mouse.left_down = false;
@@ -31,14 +32,10 @@ TTR.models = {};
 TTR.models.electrons = {};
 
 function init_models(){
-	TTR.models.track = new Rectangle(2, 19);
+	TTR.models.track = new OBJ("./assets/models/track.obj");
 	TTR.models.track.set_texture("./assets/textures/track.png");
 	TTR.models.track.set_shader(basic_shader);
-/*
-	TTR.models.note = new Sphere(0.8, 24, 24);
-	TTR.models.note.set_texture("./assets/textures/note.png");
-	TTR.models.note.set_shader(basic_shader);
-	*/
+
 	TTR.models.note = new OBJ("./assets/models/note.obj");
 	TTR.models.note.set_texture("./assets/textures/note.png");
 	TTR.models.note.set_shader(basic_shader);

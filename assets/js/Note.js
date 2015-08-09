@@ -12,20 +12,18 @@ Note.prototype.get_start_time = function(){
 	var curr_time = now.getTime();
 	var curr_milliseconds = now.getMilliseconds();
 	curr_time -= curr_milliseconds;
-	curr_time += 62.5 * Math.round(curr_milliseconds / 16); 
+	curr_time += (1000/8) * Math.round(curr_milliseconds / 8); 
 	return curr_time;
 };
 
 Note.prototype.draw = function(){
 	if(!this.should_delete){
-		mvPushMatrix();
 			var vertical_lifespan = TTR.constants.note_lifespan_factor * ( TTR.now - this.start_time );
-			mvTranslate([0,TTR.constants.note_lifespan - vertical_lifespan,0]);
-			mvRotate(90, [1,0,0]);
+			mvTranslate([0,18 - vertical_lifespan,0]);
 			this.model.draw();
+			mvTranslate([0,-(18 - vertical_lifespan),0]);
 			if(vertical_lifespan > TTR.constants.note_lifespan+9){
 				this.should_delete = true;
 			}
-		mvPopMatrix();
 	}
 };

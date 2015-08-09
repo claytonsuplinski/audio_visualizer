@@ -62,6 +62,7 @@ setInterval(function(){
 		if(TTR.user.free_mode){
 			TTR.user.rotation.x--;
 		}
+		alert(JSON.stringify(TTR.user.position) + " | " + JSON.stringify(TTR.user.rotation));
     }
 	if(TTR.keys_pressed.indexOf(40) != -1) { // Down Arrow
         // Go down

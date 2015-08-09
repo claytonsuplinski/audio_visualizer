@@ -5,13 +5,15 @@ function Track(x){
 	this.time = new Date();
 	this.notes = "";
 	
+	this.init_notes();
+};
+
+Track.prototype.init_notes = function(){
+	this.notes = [];
 };
 
 Track.prototype.add_note = function(note){
 	note.parent_object = this;
-	if(this.notes == ""){
-		this.notes = [];
-	}
 	
 	if(this.notes.length > 0){
 		if(this.notes[this.notes.length-1].start_time == note.start_time){
@@ -35,13 +37,23 @@ Track.prototype.draw = function(){
 		
 		gl.disable(gl.BLEND);
 		
-		tmp_notes = this.notes;
-		this.notes.forEach(function(note, index){
+		tmp_notes = [];
+		var score_change = false;
+		this.notes.forEach(function(note){
 			note.draw();
-			if(note.should_delete){
+			if(!note.should_delete){
+				tmp_notes.push(note);
 			//	self.notes.splice(index, 1);
 			}
+			else{
+				TTR.user.score -= 150;
+				score_change = true;
+			}
 		});
+		this.notes = tmp_notes;
+		if(score_change){
+			$("#user-score").html(TTR.user.score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+		}
 	
 	mvPopMatrix();
 };

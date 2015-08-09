@@ -1,5 +1,5 @@
 *{
-	font-family:'Poiret One', Helvetica;
+	font-family:'Arimo', Helvetica;
 }
 
 input[type=number] {
@@ -58,7 +58,7 @@ input[type=number] {
 }
 
 #top-panel{
-	background:rgba(102, 71, 138, 0.06);
+	background:black;
 	border-width:0px;
 	color:white;
 	overflow:auto;
@@ -102,8 +102,10 @@ input[type=number] {
 	font-family:'Dosis', Helvetica;
 }
 
-#top-panel .nav-table td *, .modal *{
-	font-family:'Dosis', Helvetica;
+#top-panel .nav-table td *{
+	font-size:24px;
+	font-weight:bold;
+	color:white;
 }
 
 .modal-header, .modal-footer{
