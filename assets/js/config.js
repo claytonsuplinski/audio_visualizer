@@ -15,9 +15,9 @@ TTR.user.free_mode = false;
 TTR.user.position = {};
 TTR.user.position.x = 0;
 TTR.user.position.y = 0;
-TTR.user.position.z = -30;
+TTR.user.position.z = -25;
 TTR.user.rotation = {};
-TTR.user.rotation.x = -40;
+TTR.user.rotation.x = -60;
 TTR.user.rotation.y = 0;
 TTR.user.score = 0;
 

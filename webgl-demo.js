@@ -51,10 +51,19 @@ function start() {
 		test_track_3 = new Track(5);
 		//test_track_3.add_note(new Note());
 		
-		test_sphere = new Sphere(200, 50, 50);
-		test_sphere.set_texture("./assets/textures/background.png");
+		test_sphere = new Sphere(30, 50, 50);
+		test_sphere.set_texture("./assets/textures/background2.png");
 		test_sphere.set_shader(basic_shader);
 		test_sphere_rotation = 0;
+		
+		dots_sphere = new Sphere(25, 50, 50);
+		dots_sphere.set_texture("./assets/textures/dots.png");
+		dots_sphere.set_shader(basic_shader);
+		dots_sphere_rotation = 0;
+		
+		floor = new Rectangle(80, 80);
+		floor.set_texture("./assets/textures/floor.png");
+		floor.set_shader(basic_shader);
 
 		setInterval(drawScene, 15);
 
@@ -85,12 +94,26 @@ function drawScene() {
 		mvRotate(TTR.user.rotation.y, [0,1,0]);
 	}
 	
-	mvRotate(10, [1,0,0]);
+	mvRotate(-(-30+TTR.user.rotation.x), [1,0,0]);
 	mvRotate(test_sphere_rotation, [0,1,0]);
 	test_sphere.draw();
 	mvRotate(-test_sphere_rotation, [0,1,0]);
-	mvRotate(-10, [1,0,0]);
-	test_sphere_rotation++;
+	mvRotate((-30+TTR.user.rotation.x), [1,0,0]);
+	test_sphere_rotation+=0.1;
+	
+	gl.enable(gl.BLEND);
+	gl.disable(gl.DEPTH_TEST);
+	mvPushMatrix();
+	mvTranslate([0,0,-12]);
+	mvRotate(90, [0,0,1]);
+	mvRotate(-dots_sphere_rotation, [0,1,0]);
+	dots_sphere.draw();
+	mvPopMatrix();
+	dots_sphere_rotation+=0.1;
+	gl.enable(gl.DEPTH_TEST);
+	gl.disable(gl.BLEND);
+	
+	floor.draw();
 	
 	test_track.draw();
 	test_track_2.draw();
